@@ -11,52 +11,71 @@
         * {
             padding: 0;
             margin: 0;
-            box-sizing: border-box;
         }
 
         body {
-            background-color: blue;
+            background-color: aquamarine;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .in {
-            width: 200px;
-            height: 50px;
-            /* background-color: white; */
-            margin-top: 200px;
+        div {
+            margin: 300px auto;
+            border-radius: 4px;
+            border: 2px solid #ccc;
+            cursor: pointer;
+            box-shadow: 1px 1px #333
         }
 
-        input{
-            width: 50px;
-            height: 50px;
-            outline: none;
+        input {
+            background-color: transparent;
+            width: 0px;
+            border: none;
+            padding: 0px;
+            cursor: pointer;
+            /* display: none; */
+            color: royalblue;
+            transition: .5s;
         }
 
-        .active {
-            width: 200px;
-            height: 50px;
-            outline: none;
-        }
+        i {
 
-        .icon {
-            position: absolute;
-            left: 630px;
-            top: 200px;
-            color: black;
+            padding-right: 4px;
         }
-        .icon-fangfajing{
+        .icon{
             font-size: 40px;
+            color: red;
         }
     </style>
 </head>
 
 <body>
-    <center>
-        <div class="icon"><i class="iconfont icon-fangdajing"></i></div>
-        <div class="in"><input type="text" placeholder=""></div>
-    </center>
-</body>
+    <div>
+        <form action="">
+            <input type="text" placeholder="搜索...">
+            <i class="iconfont icon-fangdajing"></i>
+        </form>
+    </div>
     <script>
-        const input = document.querySelector('input')
-
+        const i = document.querySelector("i")
+        const form = document.querySelector("form")
+        const input = document.querySelector("input")
+        let no = true
+        i.addEventListener("click", function () {
+            if (no) {
+                input.style.padding = "4px"
+                input.style.width = "100px"
+                // input.style.display= "inline"
+                no = false
+            } else {
+                input.style.padding = "0px"
+                input.style.width = "0px"
+                // input.style.display= "none"
+                no = true
+            }
+        })
     </script>
+</body>
+
 </html>
