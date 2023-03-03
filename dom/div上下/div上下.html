@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box div {
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+            border: 1px solid black;
+            transition: 1.0s;
+        }
+
+        .box {
+            width: 600px;
+            display: flex;
+            gap: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <button>向下</button><button>向上</button>
+    <div class="box">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <!-- <div></div> -->
+    <script>
+        const btn1 = document.querySelectorAll('button')[0]
+        const btn2 = document.querySelectorAll('button')[1]
+        const divArr = document.querySelectorAll('.box div')
+        // clearInterval(timer)
+        let num = 0
+        let timer = null
+        btn1.addEventListener('click', function () {
+            timer = setInterval(() => {
+                divArr[num].style.transform = 'translateY(300px)'
+                num++
+                if (num === divArr.length) {
+                    clearInterval(timer);
+                }
+            }, 100);
+        })
+        let num2 = 0
+        btn2.addEventListener('click', function () {
+            timer = setInterval(() => {
+                divArr[num2].style.transform = 'translateY(0px)'
+                num2++
+                if (num2 === divArr.length) {
+                    clearInterval(timer);
+                }
+            }, 100);
+        })
+    </script>
+</body>
+
+</html>

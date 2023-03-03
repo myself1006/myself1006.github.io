@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        form {
+            width: 500px;
+            border: 1px solid #ccc;
+        }
+
+        textarea {
+            width: 100%;
+        }
+
+        .panel {
+            display: flex;
+            justify-content: space-around;
+        }
+    </style>
+</head>
+
+<body>
+    <center>
+        <form action="">
+            <textarea name="" id="" cols="30" rows="10"></textarea>
+            <div class="panel">
+                <span>0</span>
+                <button>发送</button>
+            </div>
+        </form>
+    </center>
+</body>
+<script>
+    const textarea = document.querySelector('textarea')
+    const span = document.querySelector('span')
+    let len = 0
+    let finished = true
+    textarea.value = ''
+    textarea.addEventListener('compositionstart', function () {
+        // console.log('开始合成');
+        finished = false
+    })
+    textarea.addEventListener('compositionend', function () {
+        // console.log('结束合成');
+        finished = true
+    })
+    textarea.addEventListener('input', function () {
+        if (finished) {
+            len = textarea.value.length
+            span.innerHTML = len
+        }
+        if (len < 200) {
+            span.style.color = 'back'
+        } else {
+            span.style.color = 'red'
+            span.innerHTML = -(len - 200)
+        }
+    })
+</script>
+
+</html>

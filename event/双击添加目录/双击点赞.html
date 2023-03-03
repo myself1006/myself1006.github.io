@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>双击点赞</title>
+    <link rel="stylesheet" href="http://at.alicdn.com/t/c/font_3925755_m2704hqfmnh.css">
+    <style>
+        div {
+            margin: 0 auto;
+            width: 400px;
+            height: 500px;
+            background: url(./易.jpg) no-repeat 0% 0% / cover;
+            position: relative;
+            /* background: 背景色 背景图 重复性 位置/尺寸 固定性。 */
+            /* background-size: cover; */
+            overflow: hidden;
+        }
+
+        .iconfont {
+            font-size: 60px;
+            color: red;
+        }
+
+        .icon-dianji {
+            position: absolute;
+            left: 0;
+            top: 0;
+            transform: translate(-50%, -50%) scale(0);
+            /* transition: 1s; */
+            animation: big 1s linear;
+        }
+
+        @keyframes big {
+            form {
+                transform: translate(-50%, -50%) scale(0);
+            }
+
+            to {
+                transform: translate(-50%, -50%) scale(10);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <i class="iconfont icon-dianji"></i> -->
+    <div>
+    </div>
+    <script>
+        const div = document.querySelector('div')
+        div.addEventListener('dblclick', (ev) => {
+            const heart = document.createElement('i')
+            heart.classList.add('iconfont')
+            heart.classList.add('icon-dianji')
+            //思路2：先处理样式，再绑定DOM
+            heart.style.left = ev.pageX - div.offsetLeft - (heart.offsetWidth / 2) + 'px'
+            heart.style.top = ev.pageY - div.offsetTop - (heart.offsetHeight / 2) + 'px'
+            div.appendChild(heart)
+            //思路1：先绑定DOM，再处理样式
+            // div.appendChild(heart)
+            // heart.style.left = ev.pageX - div.offsetLeft - (heart.offsetWidth/2) + 'px'
+            // heart.style.top = ev.pageY - div.offsetTop - (heart.offsetHeight/2) + 'px'
+            setTimeout(() => {
+                heart.remove()
+            }, 400)
+        })
+    </script>
+    <!-- <script>
+            ①双击图片,显示爱心 ②爱心跟随鼠标显示 ③爱心使用特效显示 ④显示完毕再消失
+        </script> -->
+</body>
+
+</html>

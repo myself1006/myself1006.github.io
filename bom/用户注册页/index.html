@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+       
+    <meta charset="UTF-8">
+       
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+       
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+</head>
+
+<body>
+        <div class="success">
+                <p>注册成功！您的信息如下：</p>
+                    <ul>
+                            <li>邮箱地址：</li>
+                            <li>密码：</li>
+                            <li>手机号：</li>
+                        </ul>
+            </div>
+
+       
+    <script>
+        //?email=123%40163.com&password=123&tel=123
+        console.log(location.search);
+        const liArr = document.querySelectorAll('li')
+        const queryStr = window.location.search
+        const arr = queryStr.slice(1).split('&')
+        // const arr1 = arr.split('&')
+        // console.log(arr);email=123%40163.com,password=123,tel=123
+        // //slice()
+        let email = arr[0].slice(6)
+        // console.log(email);
+        let mima = arr[1].slice(3)
+        let phone = arr[2].slice(6)
+        console.log(email, mima, phone);
+
+
+        liArr[0].innerHTML = `邮箱地址：${email}`
+        liArr[1].innerHTML = `密码：${mima}`
+        liArr[2].innerHTML = `手机号：${phone}`
+    </script>
+</body>
+
+</html>

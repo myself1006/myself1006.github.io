@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        p{
+            color: cyan;
+            width: 700px;
+            height: 300px;
+            padding: 20px;
+            background-color: black;
+            margin: 50px auto;
+            line-height: 300px;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+    <p></p>
+    <script>
+    const p = document.querySelector("p")
+        let itemr
+        let num = 5
+    window.addEventListener("load",function(){
+        clearInterval(itemr)
+            itemr = setInterval(function(){
+                num--
+                p.innerHTML = "页面没有找到哦，将在"+num+"秒钟之后将会带您进入新浪首页~"
+                if(num === 0){
+                    location = "https://www.sina.com.cn/"
+                    clearInterval(itemr)
+                }
+            },1000)
+    })
+    </script>
+</body>
+</html>

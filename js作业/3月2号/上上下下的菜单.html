@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>上上下下的菜单</h1>
+    <hr>
+    <ul class="menu">
+        <li>
+            <a href="#">菜单1</a>
+            <button class="btn1">Up</button>
+            <button class="btn2">Down</button>
+        </li>
+        <li>
+            <a href="#">菜单2</a>
+            <button>Up</button>
+            <button>Down</button>
+        </li>
+        <li>
+            <a href="#">菜单3</a>
+            <button>Up</button>
+            <button>Down</button>
+        </li>
+        <li>
+            <a href="#">菜单4</a>
+            <button>Up</button>
+            <button>Down</button>
+        </li>
+        <li>
+            <a href="#">菜单5</a>
+            <button>Up</button>
+            <button>Down</button>
+        </li>
+    </ul>
+    <script>
+        //点击Down，让菜单一与菜单2交换位置
+        // const btn = document.querySelectorAll("button")[1],[]
+
+        const ul = document.querySelector("ul")
+        // const a = document.querySelectorAll("a")
+        const li = ul.children
+        // let len1 = btn.length
+        let len = li.length
+        //点击按钮，让菜单2到第yi个li的开头
+        for (let i = 0; i < len; i++) {
+            li[i].lastElementChild.addEventListener("click", function () {
+                if (this.parentElement.nextElementSibling) {
+                    ul.insertBefore(this.parentElement.nextElementSibling, this.parentElement);
+                } else {
+                    ul.insertBefore(this.parentElement, this.parentElement.parentElement.firstElementChild)
+                }
+            })
+        }
+        for (let i = 0; i < len; i++) {
+            li[i].lastElementChild.previousElementSibling.addEventListener("click", function () {
+                if (this.parentElement.nextElementSibling) {
+                    ul.insertBefore(this.parentElement.nextElementSibling, this.parentElement);
+                } else {
+                    ul.insertBefore(this.parentElement, this.parentElement.parentElement.firstElementChild)
+
+                }
+            })
+        }
+
+    </script>
+</body>
+
+</html>

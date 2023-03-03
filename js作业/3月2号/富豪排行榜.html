@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            display: flex;
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 100%;
+            width: 800px;
+        }
+
+        aside {
+            padding: 10px 20px;
+            width: 250px;
+            border-right: 1px solid #111;
+        }
+
+        button {
+            cursor: pointer;
+            background-color: #fff;
+            border-radius: 5px;
+            border: solid 1px #111;
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        main {
+            flex: 1;
+            padding: 10px 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        h2 {
+            border-bottom: 1px solid #111;
+            padding-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            font-weight: 300;
+            margin: 0 0 20px;
+        }
+
+        h3 {
+            background-color: #fff;
+            border-bottom: 1px solid #111;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            font-weight: 300;
+            margin: 20px 0 0;
+        }
+
+        .person {
+            display: flex;
+            justify-content: space-between;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>富豪排行榜</h1>
+    <div class="container">
+        <aside>
+            <button id="add-user">增加富豪</button>
+            <button id="double">加倍财富</button>
+            <button id="sort">富豪排行</button>
+            <button id="show-millionaires">仅显示百万+富豪</button>
+            <button id="calculate-wealth">计算全部财富</button>
+        </aside>
+
+        <main id="main">
+            <h2><strong>姓名</strong>身价</h2>
+        </main>
+    </div>
+    <script>
+        const dataArr = [
+            ['赵', '钱', '孙', '欧阳', '李', '周', '吴', '郑', '王', '冯', '陈', '褚', '卫', '蒋', '沈', '韩', '杨', '朱', '秦', '尤', '许', '何', '吕', '施', '张', '孔', '曹', '严', '华', '金', '魏', '陶', '姜'],
+            ['伟', '芳', '娜', '敏', '静', '秀英', '浩然', '小蒙', '子轩', '欣怡', '梓涵', '浩宇', '雨桐', '子墨', '宇航']
+        ]
+
+        //获取元素
+        const main = document.getElementById('main');
+        const addFuhaoBtn = document.getElementById('add-user');
+        const doubleBtn = document.getElementById('double');
+        const sortBtn = document.getElementById('sort');
+        const show100Btn = document.getElementById('show-millionaires');
+        const calcMoneyBtn = document.getElementById('calculate-wealth');
+        let arr = []
+        let str = ''
+
+        //创建用户
+        createFuhao()
+        // createFuhao()
+        // createFuhao()
+        function createFuhao() {
+            const oFirstName = dataArr[0][parseInt(Math.random() * dataArr[0].length)]
+            const oSecondName = dataArr[1][parseInt(Math.random() * dataArr[1].length)]
+            const oFuhao = {
+                name: `${oFirstName}${oSecondName}`,
+                money: parseInt(Math.random() * 500000)
+            }
+            arr.push(oFuhao)
+            render(arr)
+        }
+
+        //初始化
+        function render(Arr) {
+            main.innerHTML = '<h2><strong>姓名</strong>身价</h2>';
+            Arr.forEach((v) => {
+                str += `<div class='person'><strong>${v.name}</strong>${v.money}</div>`
+            })
+            main.innerHTML += str
+            str = ''
+        }
+        //加倍财富arr.map()
+        function doubleMoney() {
+            arr = arr.map(v => {
+                return { name: v.name, money: v.money * 2 }
+            })
+            render(arr)
+        }
+        //富豪排行arr.sort()
+        function zaFuhao() {
+            arr.sort((a, b) => b.money - a.money);
+            render(arr);
+        }
+        //百万富豪筛选
+        function filterFuhao() {
+            arr = arr.filter((v) => v.money > 1000000);
+            render(arr)
+        }
+        //求和
+        function totalMoney() {
+            const oResult = arr.reduce((total, v) => { return total += v.money }, 0)
+            console.log(oResult)
+            const oDiv = document.createElement('div')
+            oDiv.innerHTML = `<h3>共计: <strong>${oResult}</strong></h3>`
+            main.appendChild(oDiv)
+        }
+        addFuhaoBtn.addEventListener('click', createFuhao)
+        doubleBtn.addEventListener('click', doubleMoney)
+        sortBtn.addEventListener('click', zaFuhao)
+        show100Btn.addEventListener('click', filterFuhao)
+        calcMoneyBtn.addEventListener('click', totalMoney)
+    </script>
+</body>
+
+</html>
