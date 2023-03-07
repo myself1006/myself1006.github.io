@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        label {
+            /* background-color: olive; */
+            display: inline-block;
+            width: 100px;
+            height: 50px;
+            position: relative;
+        }
+
+        input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+            margin: 0;
+            padding: 0;
+            /* position: absolute;
+            left: 200px; */
+        }
+
+        span {
+            background-color: pink;
+            position: absolute;
+            border-radius: 5px;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        span::before {
+            content: 'OFF';
+            position: absolute;
+            left: 2px;
+            top: 2px;
+            color: white;
+            z-index: 2;
+        }
+
+        span::after {
+            content: 'ON';
+            position: absolute;
+            right: 2px;
+            top: 2px;
+            color: white;
+            z-index: 2;
+        }
+
+        span i {
+            position: absolute;
+            left: 2px;
+            top: 2px;
+            color: white;
+            height: 46px;
+            width: 46px;
+            background-color: aqua;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: .5s;
+            z-index: 1;
+        }
+
+        /* span::before {
+            content: '';
+            position: absolute;
+            height: 46px;
+            width: 46px;
+            left: 2px;
+            top: 2px;
+            background-color: aqua;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: .5s;
+        } */
+
+        input:checked+span i {
+            transform: translateX(50px);
+        }
+    </style>
+</head>
+
+<body>
+    <label><!--行内元素-->
+        <input type="checkbox"><!--隐藏的-->
+        <span><i></i></span>
+    </label>
+</body>
+
+</html>

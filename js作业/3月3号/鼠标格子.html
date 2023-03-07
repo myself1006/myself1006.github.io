@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: #ccc;
+            overflow: hidden;
+        }
+
+        #app {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 5px;
+            width: 100%;
+            height: 100%;
+            /* border: 1px solid red; */
+        }
+
+        #app div {
+            width: 20px;
+            height: 20px;
+            background-color: #ccc;
+            transition: .3s;
+        }
+    </style>
+</head>
+
+<body>
+    <!--
+        ①在#app下面生成800个div 使用for循环
+        ②让div出现
+        ③让div一行20个排列
+        ④鼠标悬停让div的背景色变成红色
+        ⑤鼠标mouseout div的时候让div的背景色变成灰色
+        ⑥鼠标mouseout div的时候让div的背景色一秒之后变成灰色
+        ⑦修改红色为数组里的任意一个色
+    -->
+    <div id="app"></div>
+    <script>
+        const div = document.querySelector('#app')
+        let timer
+        const color = ['red', 'black', 'pink', 'cyan']
+        for (let i = 0; i < 1100; i++) {
+            div.innerHTML += '<div></div>'
+        }
+        const divArr = document.querySelectorAll('#app div')
+        divArr.forEach((div, e) => {
+            div.addEventListener('mouseover', () => {
+                div.style.background = `${color[e % color.length]}`
+            })
+            div.addEventListener('mouseout', () => {
+                timer = setTimeout(() => {
+                    div.style.background = '#ccc'
+                }, 1000)
+            })
+        })
+    </script>
+</body>
+
+</html>
