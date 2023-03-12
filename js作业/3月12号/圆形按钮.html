@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        label {
+            background-color: lightcyan;
+            display: block;
+            width: 100px;
+            height: 50px;
+            position: relative;
+            border-radius: 25px;
+        }
+
+        input {
+            margin: 0;
+            opacity: 0;
+            width: 50px;
+            height: 50px;
+            position: fixed;
+            left: 8px;
+            z-index: 10;
+            cursor: pointer;
+        }
+
+        label span {
+            background-color: #aaa;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            border-radius: 25px;
+        }
+
+        label span::before {
+            content: "";
+            text-align: center;
+            line-height: 46px;
+            color: black;
+            position: absolute;
+            left: 2px;
+            top: 2px;
+            height: 46px;
+            width: 46px;
+            background-color: #ddd;
+            border-radius: 25px;
+            transition: .5s;
+        }
+
+        p {
+            position: absolute;
+        }
+
+        .p1 {
+            color: lawngreen;
+            left: 9px;
+        }
+
+        .p2 {
+            left: 60px;
+            color: brown;
+        }
+
+        input:checked {
+            transform: translate(50px);
+        }
+
+        input:checked+span::before {
+            transform: translate(50px);
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <label for="">
+            <input type="checkbox" name="" id="">
+            <span></span>
+            <p class="p1">OFF</p>
+            <p class="p2">ON</p>
+        </label>
+    </div>
+    <script>
+        const pArr = document.querySelectorAll("p")
+        const span = document.querySelector("span")
+        const input = document.querySelector("input")
+        let on = true
+        input.addEventListener("click", function () {
+            if (on) {
+                pArr[0].style.color = '#fff';
+                pArr[1].style.color = 'pink';
+                span.style.background = "pink";
+                on = false
+            } else {
+                pArr[0].style.color = 'yellow';
+                pArr[1].style.color = '#fff';
+                span.style.background = "yellow";
+                on = true
+            }
+
+        })
+    </script>
+</body>
+
+</html>

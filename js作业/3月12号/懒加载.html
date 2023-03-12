@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 30px;
+        }
+
+        #app {
+            width: 600px;
+            display: flex;
+            border: 1px solid #000;
+            padding: 20px;
+            /* overflow: hidden; */
+            /* justify-content: center; */
+        }
+
+        #app .items div {
+            /* display: flex;
+            flex-wrap: wrap; */
+            /* border: 1px solid #ccc; */
+            margin-top: 20px;
+        }
+
+        .loader {
+            /* background-color: pink; */
+            display: flex;
+            align-items: center;
+            width: 58px;
+            height: 24px;
+            justify-content: space-between;
+            opacity: 0;
+        }
+
+        .loader.show {
+            opacity: 1;
+        }
+
+        .loader div {
+            width: 10px;
+            height: 24px;
+            background-color: lawngreen;
+            animation: loader 1.2s infinite;
+        }
+
+        .loader div:nth-child(1) {
+            animation-delay: -0.24s;
+        }
+
+        .loader div:nth-child(2) {
+            animation-delay: -0.12s;
+        }
+
+        .loader div:nth-child(3) {
+            animation-delay: 0;
+        }
+
+        @keyframes loader {
+            0% {
+                height: 24px;
+            }
+
+            50%,
+            100% {
+                height: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="container">
+            <h1>语录</h1>
+            <div class="items">
+                <!-- <div class="itme">
+                    <span>1.</span>
+                    <p>Talk is cheap,show me the code.</p>
+                    <address>Linux</address>
+                </div> -->
+                <!-- <div>我是有底线的</div> -->
+            </div>
+            <div class="loader">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // 获取元素
+        const itemsEl = document.querySelector('.items')
+        const loader = document.querySelector('.loader')
+
+        // 变量
+        let currenPage = 1
+        let all = 0
+        let limit = 20
+        let reached = false
+        let finished = true //开关：标识下一组戴数据是否加载完毕
+        ////////初始化////////
+        // 1.获取数据
+        function getItems(page, limit) {
+            // 加载前
+            showLoader()
+            const API = `https://api.javascripttutorial.net/v1/quotes/?page=${page}&limit=${limit}`
+            // console.log(API);
+            // 发送请求,获取数据
+            const xhr = new XMLHttpRequest()
+            xhr.open('GET', API, true)
+            xhr.onload = () => {
+                if (xhr.status === 200) {
+                    // 通过parse解析xhr.http的响应
+                    const itemData = JSON.parse(xhr.response)
+                    // console.log(itemData);
+                    renderItems(itemData.data)
+                    all = itemData.total
+                }
+            }
+            xhr.send()
+        }
+        // 渲染数据
+        // let str = ''
+        function renderItems(data) {
+            data.forEach((itme) => {
+                const div = document.createElement('div')
+                div.className = 'item'
+                div.innerHTML = `
+                    <span>${itme.id}</span>
+                    <p>${itme.quote}</p>
+                    <address>${itme.author}</address> 
+            `
+                itemsEl.appendChild(div)
+            });
+            finished = true
+            // 加载后
+            hideLoader()
+        }
+        function showLoader() {
+            loader.classList.add('show')
+        }
+        function hideLoader() {
+            loader.classList.remove('show')
+        }
+        // 初始化
+        getItems(currenPage, limit)
+
+        // 滚动条滚动到视口底部时 加载下一组数据
+        // ↑视口高度 + 滚动距离 >= 文档高度
+        window.addEventListener('scroll', () => {
+            // const a = window.innerHeight
+            // const b = window.scrollY
+            // const c = document.documentElement.scrollHeight -5
+            // ES6 新增表达式语法：解构 + es6 新增对象语法：对象属性的简写
+            const { clientHeight: a, scrollTop: b, scrollHeight: c } = document.documentElement
+            if (a + b > c - 5 && currenPage < Math.ceil(all / limit)) {
+                // console.log('到底了');
+                if (!finished) return //第二次scroll会返回
+                finished = false //表示下一组数据还没完成
+                console.log('currentPage =' + currenPage);
+                //    setTimeout(() => {
+                currenPage++
+                getItems(currenPage, limit)//执行第二页
+                //    },500)
+            }
+            if (currenPage == Math.ceil(all / limit) && finished) {
+                if (reached) return
+                reached = true
+                const div = document.createElement('div')
+                div.innerHTML = '底线已到达'
+                itemsEl.appendChild(div)
+            }
+        })
+    </script>
+</body>
+
+</html>
